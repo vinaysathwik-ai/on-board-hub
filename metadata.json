@@ -1,0 +1,8 @@
+{
+  "name": "FresherFlow AI - Employee Onboarding & Tracking",
+  "description": "A comprehensive platform for new employees featuring meeting management, hourly productivity tracking, and an integrated AI work assistant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

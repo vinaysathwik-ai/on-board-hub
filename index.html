@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onboard Hub | Portable AI Terminal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    /**
+     * ==========================================
+     * GLOBAL CONFIGURATION (PORTABILITY MODE)
+     * ==========================================
+     * To make the AI Agent work on any computer:
+     * 1. Get a key from: https://aistudio.google.com/app/apikey
+     * 2. Replace the empty string below with your key.
+     */
+    const MASTER_API_KEY = ""; // PASTE YOUR API KEY HERE
+    const MASTER_MODEL_NAME = "gemini-3-pro-preview";
+
+    // Polyfill for process.env used by the AI service
+    window.process = window.process || { env: {} };
+    window.process.env.API_KEY = MASTER_API_KEY;
+    window.process.env.MODEL_NAME = MASTER_MODEL_NAME;
+
+    // Security Warning
+    if (!MASTER_API_KEY) {
+      console.warn("AI AGENT: No API Key found. AI features will be disabled until a key is added to index.html.");
+    }
+  </script>
+  <style>
+    :root {
+      --background: #050506;
+      --foreground: #EDEDEF;
+      --accent: #5E6AD2;
+      --accent-glow: rgba(94, 106, 210, 0.3);
+      --border: rgba(255, 255, 255, 0.06);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background);
+      color: var(--foreground);
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .bg-system {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(ellipse at top, #0a0a0f 0%, #050506 50%, #020203 100%);
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+    }
+
+    .bg-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.015;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 100%;
+      filter: blur(120px);
+      opacity: 0.15;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(-20px, -40px) scale(1.1);
+      }
+    }
+
+    @keyframes expo-out {
+      0% {
+        opacity: 0;
+        transform: translateX(-8px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .animate-expo-out {
+      animation: expo-out 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .message-bubble.sent {
+      background-color: #FFFFFF !important;
+      color: #000000 !important;
+      border: 1px solid #E0E0E0;
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom": "https://esm.sh/react-dom@^19.2.4",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+  <div class="bg-system">
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+    <div class="blob bg-[#5E6AD2] w-[800px] h-[800px] top-[-20%] left-[10%]"></div>
+    <div class="blob bg-purple-500 w-[600px] h-[600px] bottom-[-10%] right-[5%]"></div>
+  </div>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
