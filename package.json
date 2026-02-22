@@ -1,0 +1,28 @@
+{
+    "name": "hackathon-onboarding-platform",
+    "version": "1.0.0",
+    "description": "Full-stack onboarding platform for hackathon freshers",
+    "main": "backend/server.js",
+    "scripts": {
+        "start": "node backend/server.js",
+        "dev": "nodemon backend/server.js",
+        "seed": "node database/seed.js",
+        "postinstall": "echo 'Ready to deploy!'"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@google/generative-ai": "^0.24.1",
+        "axios": "^1.13.4",
+        "body-parser": "^2.2.2",
+        "cors": "^2.8.6",
+        "dotenv": "^17.2.4",
+        "express": "^5.2.1",
+        "mongodb": "^7.1.0",
+        "mongoose": "^9.1.6"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.9"
+    }
+}

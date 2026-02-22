@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresher Onboarding Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+
+<body>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <canvas id="login-bg-canvas"></canvas>
+        <div class="login-card">
+            <div class="login-card-glare"></div>
+            <div class="login-logo-container">
+                <div class="app-logo">
+                    <div class="circle circle-1"></div>
+                    <div class="circle circle-2"></div>
+                </div>
+                <div class="logo-text">Onboard<span>AI</span></div>
+            </div>
+            <h1><span class="welcome-text">Welcome</span> <span class="aboard-text">Aboard</span>! </h1>
+            <p>Please log in to start your journey.</p>
+            <form id="login-form">
+                <input type="email" id="email" placeholder="Enter your email (e.g., fresher@company.com)" required>
+                <button type="submit">Log In</button>
+            </form>
+            <p class="hint">Hint: Use 'fresher@company.com' for demo.</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="screen hidden">
+        <nav class="sidebar">
+            <!-- Decorative background graphics -->
+            <div class="sidebar-orb sidebar-orb-1"></div>
+            <div class="sidebar-orb sidebar-orb-2"></div>
+            <div class="sidebar-grid"></div>
+
+            <div class="logo">
+                <div class="app-logo">
+                    <div class="circle circle-1"></div>
+                    <div class="circle circle-2"></div>
+                </div>
+                Onboard<span>AI</span>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">👤</div>
+                <div>
+                    <span id="user-name">User Name</span>
+                    <span id="user-role" class="badge">Fresher</span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-target="ai-assistant" onclick="showSection('ai-assistant')"> AI Assistant</li>
+                <li data-target="mentor-chat" onclick="showSection('mentor-chat')"> Mentor Chat</li>
+                <li data-target="learning-modules" onclick="showSection('learning-modules')"> Learning Modules</li>
+                <li data-target="progress-tracker" onclick="showSection('progress-tracker')"> Progress</li>
+                <li data-target="starter-kit" onclick="showSection('starter-kit')"> Starter Kit</li>
+                <li data-target="faqs" onclick="showSection('faqs')"> FAQs</li>
+            </ul>
+
+            <!-- Bottom decorative panel -->
+            <div class="sidebar-footer">
+                <div class="sidebar-divider"></div>
+                <div class="sys-status">
+                    <span class="sys-dot"></span>
+                    <span class="sys-label">System Online</span>
+                </div>
+                <div class="build-tag">v2.0 · Hackathon Build</div>
+            </div>
+        </nav>
+
+        <!-- Mobile backdrop + menu button (controlled by JS/CSS) -->
+        <div id="mobile-backdrop" class="mobile-backdrop"></div>
+        <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Open menu">
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar3"></span>
+        </button>
+
+        <main class="content">
+
+            <!-- AI Assistant Section -->
+            <section id="ai-assistant" class="section active">
+                <canvas id="ai-bg-canvas"></canvas>
+                <header>
+                    <h2>Ask me anything</h2>
+                    <div class="header-tag">Powered by AI</div>
+                    <p>Powered by Google Anti Gravity Logic — get instant answers about the company.</p>
+                </header>
+                <div class="chat-container">
+                    <div id="ai-chat-history" class="chat-history">
+                        <!-- Messages go here -->
+                        <div class="message ai">
+                            Hello! I'm your AI onboarding assistant. Ask me <span class="ask-me">anything</span> about
+                            the company!
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="ai-input" placeholder="Ask a question...">
+                        <button onclick="askAI()">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mentor Chat Section -->
+            <section id="mentor-chat" class="section">
+                <header>
+                    <h2>Mentor Chat</h2>
+                    <div class="header-tag">Live Support</div>
+                    <p>Connect with your assigned mentor — usually responds in minutes.</p>
+                </header>
+                <div class="chat-container glass-chat">
+                    <div id="mentor-chat-history" class="chat-history">
+                        <!-- Messages go here -->
+                        <div class="message ai">
+                            Hello! I'm your assigned mentor. Feel free to ask me anything about your role or our team
+                            culture!
+                        </div>
+                    </div>
+                    <div class="chat-input glass-input">
+                        <input type="text" id="mentor-input" placeholder="Message your mentor...">
+                        <button onclick="sendMentorMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Learning Modules Section -->
+            <section id="learning-modules" class="section">
+                <header>
+                    <h2>Learning Modules</h2>
+                    <div class="header-tag">Ready to Scale?</div>
+                    <p>Master the core concepts of backend development with our curated learning paths.</p>
+                </header>
+                <div id="modules-list" class="modules-grid">
+                    <!-- Modules injected here -->
+                </div>
+            </section>
+
+            <!-- Progress Tracker Section -->
+            <section id="progress-tracker" class="section">
+                <header>
+                    <h2>Progress Tracker</h2>
+                    <div class="header-tag">Your Journey</div>
+                    <p>Track your onboarding milestones and achievements in real time.</p>
+                </header>
+                <div class="progress-grid">
+                    <div class="progress-card">
+                        <div class="progress-circle" id="progress-circle">
+                            <!-- Digital Orbit Rings -->
+                            <div class="orbit-ring orbit-outer">
+                                <div class="particles"></div>
+                            </div>
+                            <div class="orbit-ring orbit-inner">
+                                <div class="particles"></div>
+                            </div>
+
+                            <!-- Coordinate HUD Markers -->
+                            <div class="hud-deco">
+                                <span class="deco-dot">01</span>
+                                <span class="deco-dot">02</span>
+                                <span class="deco-dot">03</span>
+                                <span class="deco-dot">04</span>
+                            </div>
+
+                            <!-- Blue Segment: Learning Modules -->
+                            <div class="segment segment-mod">
+                                <div class="chart-tooltip tooltip-mod" id="tooltip-mod">
+                                    <span class="tt-task">Learning Modules</span>
+                                    <span class="tt-percent" id="tt-mod-p">0%</span>
+                                    <span class="tt-action" id="tt-mod-action">Latest: None</span>
+                                </div>
+                            </div>
+
+                            <!-- Green Segment: Starter Kit Tasks -->
+                            <div class="segment segment-task">
+                                <div class="chart-tooltip tooltip-task" id="tooltip-task">
+                                    <span class="tt-task">Starter Kit Tasks</span>
+                                    <span class="tt-percent" id="tt-task-p">0%</span>
+                                    <span class="tt-action" id="tt-task-action">Latest: None</span>
+                                </div>
+                            </div>
+
+                            <div class="chart-content">
+                                <span id="progress-text">0%</span>
+                                <span class="progress-label">Journey</span>
+                            </div>
+                        </div>
+                        <h3>Overall Completion</h3>
+                        <div class="chart-legend">
+                            <div class="legend-item"><span class="dot mod"></span> Modules</div>
+                            <div class="legend-item"><span class="dot task"></span> Tasks</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <span>🎯</span>
+                        <p class="label">Modules Done</p>
+                        <p class="value" id="stat-modules">0/4</p>
+                    </div>
+                    <div class="stat-card">
+                        <span>📝</span>
+                        <p class="label">Tasks Completed</p>
+                        <p class="value" id="stat-tasks">0/8</p>
+                    </div>
+                    <div class="stat-card">
+                        <span>🏆</span>
+                        <p class="label">Rank</p>
+                        <p class="value">Fresher</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Starter Kit Section -->
+            <section id="starter-kit" class="section">
+                <header>
+                    <h2>Starter Kit</h2>
+                    <div class="header-tag">Week One</div>
+                    <p>Essential resources and tasks to complete in your first week.</p>
+                </header>
+                <div class="kit-grid">
+                    <div class="kit-card">
+                        <h3>🛠 Technical Setup</h3>
+                        <label class="checklist-item">
+                            <input type="checkbox" onchange="toggleTask(this, 'vpn')">
+                            <span>Install Company VPN</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" onchange="toggleTask(this, 'git')">
+                            <span>Request Git Access</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" onchange="toggleTask(this, 'ide')">
+                            <span>Setup IDE Extensions</span>
+                        </label>
+                    </div>
+                    <div class="kit-card">
+                        <h3>🤝 Social & HR</h3>
+                        <label class="checklist-item">
+                            <input type="checkbox" onchange="toggleTask(this, 'profile')">
+                            <span>Update Profile Bio</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" onchange="toggleTask(this, 'mentor')">
+                            <span>Introduce to Mentor</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" onchange="toggleTask(this, 'policy')">
+                            <span>Sign Remote Policy</span>
+                        </label>
+                    </div>
+                    <div class="kit-card">
+                        <h3>📚 Resources</h3>
+                        <label class="checklist-item">
+                            <input type="checkbox" onchange="toggleTask(this, 'docs')">
+                            <span>Read Architecture Docs</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" onchange="toggleTask(this, 'style')">
+                            <span>Review Style Guide</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQs Section -->
+            <section id="faqs" class="section">
+                <header>
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="header-tag">Got Questions?</div>
+                    <p>Click any question to instantly ask your AI assistant for a detailed answer.</p>
+                </header>
+                <div id="faq-list" class="faq-container">
+                    <!-- FAQs injected here -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
